@@ -11,6 +11,7 @@ import { getDefaultPeriod, getOngoingPeriod } from '../../utils/period';
 import { PATHS } from '../../routes';
 
 const MENUS: { path: string; title: string; description: string }[] = [
+    { path: PATHS.applications, title: '신청 현황', description: '날짜·시간별 신청자 확인' },
 ];
 
 export const HomePage = () => {
