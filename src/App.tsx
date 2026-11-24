@@ -11,6 +11,7 @@ import RentalsPage from "./pages/rentals";
 import HeadcountPage from "./pages/headcount";
 import AttendanceCheckPage from "./pages/attendance";
 import AttendanceRecordsPage from "./pages/records";
+import RoomsPage from "./pages/rooms";
 
 const routes = {
     tabs: [{ path: PATHS.home, index: true, element: HomePage }],
@@ -20,6 +21,7 @@ const routes = {
         { path: PATHS.headcount, element: HeadcountPage },
         { path: PATHS.attendance, element: AttendanceCheckPage },
         { path: PATHS.records, element: AttendanceRecordsPage },
+        { path: PATHS.rooms, element: RoomsPage },
     ],
 };
 

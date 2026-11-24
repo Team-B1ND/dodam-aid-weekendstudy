@@ -15,6 +15,7 @@ const MENUS: { path: string; title: string; description: string }[] = [
     { path: PATHS.rentals, title: '실 대여', description: '프로젝트별 실 대여 신청과 참여 인원' },
     { path: PATHS.headcount, title: '인원 조회', description: '층별·실별 자습 인원' },
     { path: PATHS.records, title: '출석 기록', description: '학생별 출석 조회와 엑셀 내보내기' },
+    { path: PATHS.rooms, title: '실 관리', description: '대여 가능 실 등록·비활성화' },
 ];
 
 export const HomePage = () => {
