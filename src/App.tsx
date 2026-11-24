@@ -1,122 +1,85 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Component, useEffect, type ReactNode } from "react";
+import { BridgeProvider } from "@b1nd/aid-kit/bridge-kit/web";
+import { SafeAreaProvider } from "@b1nd/aid-kit/safe-area-provider";
+import { AppStateProvider } from "@b1nd/aid-kit/app-state";
+import { RouteProvider, Router } from "@b1nd/aid-kit/navigation";
+import { AccessTokenBridge } from "./components/AccessTokenBridge";
+import { PATHS } from "./routes";
+import HomePage from "./pages/home";
+import AttendanceCheckPage from "./pages/attendance";
 
-function App() {
-  const [count, setCount] = useState(0)
+const routes = {
+    tabs: [{ path: PATHS.home, index: true, element: HomePage }],
+    stacks: [
+        { path: PATHS.attendance, element: AttendanceCheckPage },
+    ],
+};
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+type EBProps = { children: ReactNode };
+type EBState = { error: Error | null };
 
-      <div className="ticks"></div>
+class ErrorBoundary extends Component<EBProps, EBState> {
+    state: EBState = { error: null };
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
+    static getDerivedStateFromError(error: Error): EBState {
+        return { error };
+    }
+
+    render() {
+        const { error } = this.state;
+        if (error) {
+            return (
+                <pre
+                    style={{
+                        padding: 16,
+                        fontSize: 12,
+                        lineHeight: 1.5,
+                        whiteSpace: "pre-wrap",
+                        wordBreak: "break-all",
+                    }}
                 >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+                    {String(error.stack ?? error.message ?? error)}
+                </pre>
+            );
+        }
+        return this.props.children;
+    }
 }
 
-export default App
+const ThemeApplier = () => {
+    useEffect(() => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const apply = () => {
+            document.documentElement.setAttribute(
+                "data-theme",
+                media.matches ? "dark" : "light"
+            );
+        };
+
+        apply();
+        media.addEventListener("change", apply);
+
+        return () => media.removeEventListener("change", apply);
+    }, []);
+
+    return null;
+};
+
+const App = () => (
+    <ErrorBoundary>
+        <BridgeProvider>
+            <SafeAreaProvider>
+                <AppStateProvider>
+                    <ThemeApplier />
+                    <AccessTokenBridge />
+                    <RouteProvider routes={routes}>
+                        <Router routes={routes} />
+                    </RouteProvider>
+                </AppStateProvider>
+            </SafeAreaProvider>
+        </BridgeProvider>
+    </ErrorBoundary>
+);
+
+export default App;
