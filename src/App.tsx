@@ -12,6 +12,8 @@ import HeadcountPage from "./pages/headcount";
 import AttendanceCheckPage from "./pages/attendance";
 import AttendanceRecordsPage from "./pages/records";
 import RoomsPage from "./pages/rooms";
+import BlocksPage from "./pages/blocks";
+import NewBlockPage from "./pages/blocks/new";
 
 const routes = {
     tabs: [{ path: PATHS.home, index: true, element: HomePage }],
@@ -22,6 +24,8 @@ const routes = {
         { path: PATHS.attendance, element: AttendanceCheckPage },
         { path: PATHS.records, element: AttendanceRecordsPage },
         { path: PATHS.rooms, element: RoomsPage },
+        { path: PATHS.blocks, element: BlocksPage },
+        { path: PATHS.newBlock, element: NewBlockPage },
     ],
 };
 

@@ -16,6 +16,7 @@ const MENUS: { path: string; title: string; description: string }[] = [
     { path: PATHS.headcount, title: '인원 조회', description: '층별·실별 자습 인원' },
     { path: PATHS.records, title: '출석 기록', description: '학생별 출석 조회와 엑셀 내보내기' },
     { path: PATHS.rooms, title: '실 관리', description: '대여 가능 실 등록·비활성화' },
+    { path: PATHS.blocks, title: '실 사용 제한', description: '수업·점검 시간에 실 신청 막기' },
 ];
 
 export const HomePage = () => {
