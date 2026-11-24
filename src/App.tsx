@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "@b1nd/aid-kit/safe-area-provider";
 import { AppStateProvider } from "@b1nd/aid-kit/app-state";
 import { RouteProvider, Router } from "@b1nd/aid-kit/navigation";
 import { AccessTokenBridge } from "./components/AccessTokenBridge";
+import { ManagerGate } from "./components/ManagerGate";
 import { PATHS } from "./routes";
 import HomePage from "./pages/home";
 import ApplicationsPage from "./pages/applications";
@@ -87,9 +88,11 @@ const App = () => (
                 <AppStateProvider>
                     <ThemeApplier />
                     <AccessTokenBridge />
-                    <RouteProvider routes={routes}>
-                        <Router routes={routes} />
-                    </RouteProvider>
+                    <ManagerGate>
+                        <RouteProvider routes={routes}>
+                            <Router routes={routes} />
+                        </RouteProvider>
+                    </ManagerGate>
                 </AppStateProvider>
             </SafeAreaProvider>
         </BridgeProvider>
