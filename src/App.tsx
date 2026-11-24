@@ -10,6 +10,7 @@ import ApplicationsPage from "./pages/applications";
 import RentalsPage from "./pages/rentals";
 import HeadcountPage from "./pages/headcount";
 import AttendanceCheckPage from "./pages/attendance";
+import AttendanceRecordsPage from "./pages/records";
 
 const routes = {
     tabs: [{ path: PATHS.home, index: true, element: HomePage }],
@@ -18,6 +19,7 @@ const routes = {
         { path: PATHS.rentals, element: RentalsPage },
         { path: PATHS.headcount, element: HeadcountPage },
         { path: PATHS.attendance, element: AttendanceCheckPage },
+        { path: PATHS.records, element: AttendanceRecordsPage },
     ],
 };
 
