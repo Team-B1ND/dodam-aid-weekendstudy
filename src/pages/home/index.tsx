@@ -12,6 +12,7 @@ import { PATHS } from '../../routes';
 
 const MENUS: { path: string; title: string; description: string }[] = [
     { path: PATHS.applications, title: '신청 현황', description: '날짜·시간별 신청자 확인' },
+    { path: PATHS.rentals, title: '실 대여', description: '프로젝트별 실 대여 신청과 참여 인원' },
 ];
 
 export const HomePage = () => {

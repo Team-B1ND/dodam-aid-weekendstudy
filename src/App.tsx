@@ -7,12 +7,14 @@ import { AccessTokenBridge } from "./components/AccessTokenBridge";
 import { PATHS } from "./routes";
 import HomePage from "./pages/home";
 import ApplicationsPage from "./pages/applications";
+import RentalsPage from "./pages/rentals";
 import AttendanceCheckPage from "./pages/attendance";
 
 const routes = {
     tabs: [{ path: PATHS.home, index: true, element: HomePage }],
     stacks: [
         { path: PATHS.applications, element: ApplicationsPage },
+        { path: PATHS.rentals, element: RentalsPage },
         { path: PATHS.attendance, element: AttendanceCheckPage },
     ],
 };
