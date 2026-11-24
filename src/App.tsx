@@ -8,6 +8,7 @@ import { PATHS } from "./routes";
 import HomePage from "./pages/home";
 import ApplicationsPage from "./pages/applications";
 import RentalsPage from "./pages/rentals";
+import HeadcountPage from "./pages/headcount";
 import AttendanceCheckPage from "./pages/attendance";
 
 const routes = {
@@ -15,6 +16,7 @@ const routes = {
     stacks: [
         { path: PATHS.applications, element: ApplicationsPage },
         { path: PATHS.rentals, element: RentalsPage },
+        { path: PATHS.headcount, element: HeadcountPage },
         { path: PATHS.attendance, element: AttendanceCheckPage },
     ],
 };
